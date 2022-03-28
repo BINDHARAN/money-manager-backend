@@ -13,6 +13,20 @@ export async function getTransaction() {
     .toArray()
 }
 
+export async function updatetransaction(updateData, id) {
+  return await client
+    .db('hackathon')
+    .collection('transaction')
+    .updateOne({ _id: ObjectId(id) }, { $set: updateData })
+}
+
+export async function getTransactionById(id) {
+  return await client
+    .db('hackathon')
+    .collection('transaction')
+    .findOne({ _id: ObjectId(id) })
+}
+
 export async function deleteTransactionById(id) {
   return await client
     .db('hackathon')

@@ -3,6 +3,8 @@ import {
   createTransaction,
   deleteTransactionById,
   getTransaction,
+  getTransactionById,
+  updatetransaction,
 } from '../helper.js'
 
 const router = express.Router()
@@ -22,6 +24,25 @@ router.get('/', async (req, res) => {
   const result = await getTransaction(data)
   res.send(result)
 })
+
+//READ TRANSACTION BY ID
+
+router.get("/edit/:id", async (req, res) => {
+  const { id } = req.params;
+  const result = await getTransactionById(id);
+  result
+    ? res.send(result)
+    : res.status(404).send({ message: "No such transaction found" });
+});
+
+
+//UPDATE TRANSACTION
+router.put("/:id", async (req, res) => {
+  const { id } = req.params;
+  const updateData = req.body;
+  const result = await updatetransaction(updateData, id);
+  res.send(result);
+});
 
 //DELETE TRANSACTION
 router.delete('/:id', async (req, res) => {
