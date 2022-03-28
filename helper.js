@@ -43,3 +43,7 @@ export async function getUserByName(username) {
     username: username,
   })
 }
+
+export async function deleteAllTransactions() {
+  return await client.db('hackathon').collection('transaction').deleteMany({})
+}

@@ -1,6 +1,7 @@
 import express from 'express'
 import {
   createTransaction,
+  deleteAllTransactions,
   deleteTransactionById,
   getTransaction,
   getTransactionById,
@@ -27,22 +28,23 @@ router.get('/', async (req, res) => {
 
 //READ TRANSACTION BY ID
 
-router.get("/:id", async (req, res) => {
-  const { id } = req.params;
-  const result = await getTransactionById(id);
+router.get('/:id', async (req, res) => {
+  const { id } = req.params
+  // console.log(id)
+  const result = await getTransactionById(id)
+  // console.log(result)
   result
     ? res.send(result)
-    : res.status(404).send({ message: "No such transaction found" });
-});
-
+    : res.status(404).send({ message: 'No such transaction found' })
+})
 
 //UPDATE TRANSACTION
-router.put("/:id", async (req, res) => {
-  const { id } = req.params;
-  const updateData = req.body;
-  const result = await updatetransaction(updateData, id);
-  res.send(result);
-});
+router.put('/:id', async (req, res) => {
+  const { id } = req.params
+  const updateData = req.body
+  const result = await updatetransaction(updateData, id)
+  res.send(result)
+})
 
 //DELETE TRANSACTION
 router.delete('/:id', async (req, res) => {
@@ -53,7 +55,11 @@ router.delete('/:id', async (req, res) => {
   res.send(transactions)
 })
 
+router.delete('/', async function (req, res) {
+  const result = await deleteAllTransactions()
+  res.send(result)
+})
+
 //UPDATE TRANSACTION
 
 export const transactionRoute = router
-
